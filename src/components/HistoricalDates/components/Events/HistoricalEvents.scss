@@ -1,0 +1,70 @@
+@import "../../../../scss/variables.scss";
+
+.historical-events {
+  position: relative;
+  padding-top: 20px;
+  margin-bottom: 70px;
+  border-top: 1px solid $ghost;
+
+  @media (min-width: $tablet) {
+    padding-top: 32px;
+  }
+
+  @media (min-width: $desktop-1280) {
+    padding-top: 0;
+    margin-bottom: 0;
+    border-top: none;
+  }
+
+  &__slider {
+    margin-right: -20px;
+
+    @media (min-width: $tablet) {
+      margin-right: 0;
+    }
+
+    .swiper-slide {
+      width: 60%;
+
+      &:not(&-active) {
+        opacity: 0.4;
+
+        @media (min-width: $tablet) {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__nav {
+    position: absolute;
+    top: 41px;
+    display: none;
+    border-radius: 100%;
+    box-shadow: 0 0 15px rgb(56 119 238 / 10%);
+    cursor: pointer;
+
+    @media (min-width: $desktop-1280) {
+      display: block;
+    }
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &--prev {
+      left: -50px;
+
+      img {
+        transform: rotate(180deg);
+      }
+    }
+    &--next {
+      right: -50px;
+    }
+
+    &.swiper-button-disabled {
+      display: none;
+    }
+  }
+}

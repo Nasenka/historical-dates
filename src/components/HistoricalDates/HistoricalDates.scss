@@ -1,0 +1,270 @@
+@import "../../scss/variables.scss";
+
+.historical-dates {
+  position: relative;
+  padding: 50px 0;
+
+  @media (min-width: $desktop-1280) {
+    padding: 0;
+  }
+
+  &__container {
+    position: relative;
+
+    @media (min-width: $desktop-1280) {
+      padding: 120px 80px;
+      border-right: 1px solid $mystic;
+      border-left: 1px solid $mystic;
+    }
+
+    @media (min-width: $desktop-1440) {
+      padding: 170px 80px;
+    }
+  }
+
+  &__line {
+    position: absolute;
+    display: none;
+    background: $mystic;
+
+    @media (min-width: $desktop-1280) {
+      display: block;
+    }
+
+    &--h {
+      top: 430px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+
+      @media (min-width: $desktop-1440) {
+        top: 480px;
+      }
+    }
+
+    &--v {
+      top: 0;
+      left: 50%;
+      width: 1px;
+      height: 100%;
+      transform: translateX(-50%);
+    }
+  }
+
+  &__circle {
+    position: absolute;
+    top: 165px;
+    left: 50%;
+    display: none;
+    width: 530px;
+    height: 530px;
+    transform: translateX(-50%);
+    border: 1px solid rgb(66 86 122 / 20%);
+    border-radius: 50%;
+    z-index: 10;
+
+    @media (min-width: $desktop-1280) {
+      display: block;
+    }
+
+    @media (min-width: $desktop-1440) {
+      top: 215px;
+    }
+  }
+
+  &__bullet {
+    position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 8px;
+    height: 8px;
+    background: $east-bay;
+    border-radius: 100%;
+    cursor: pointer;
+    font-size: 0;
+    line-height: 30px;
+    color: $east-bay;
+
+    @media (min-width: $desktop-1280) {
+      display: flex;
+    }
+
+    &:hover,
+    &--active {
+      width: 56px;
+      height: 56px;
+      font-size: 20px;
+      background: $whisper;
+      border: 1px solid $east-bay;
+      transform: translate(-50%, -50%);
+    }
+  }
+
+  &__period {
+    width: 100%;
+    overflow: visible;
+
+    & > .swiper-wrapper {
+      & > .swiper-slide-active {
+        z-index: 100;
+      }
+    }
+
+    & > .swiper-pagination {
+      .swiper-pagination-bullet {
+        width: 6px;
+        height: 6px;
+        margin: 0 5px;
+        background-color: $east-bay;
+        opacity: 0.4;
+
+        &-active {
+          opacity: 1;
+        }
+      }
+    }
+  }
+
+  &__title {
+    margin-bottom: 56px;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 120%;
+    color: $east-bay;
+
+    @media (min-width: $tablet) {
+      display: flex;
+      gap: 76px;
+      margin-left: -81px;
+      font-size: 36px;
+    }
+
+    @media (min-width: $desktop-1280) {
+      margin-bottom: 96px;
+      font-size: 56px;
+    }
+
+    &::before {
+      content: "";
+      width: 5px;
+      background: linear-gradient(
+        to bottom,
+        $royal-blue 0,
+        $brilliant-rose 100%
+      );
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    @media (min-width: $desktop-1280) {
+      gap: 280px;
+    }
+  }
+
+  &__numbers {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-bottom: 56px;
+    font-weight: 700;
+    font-size: 56px;
+    letter-spacing: -1px;
+
+    @media (min-width: $tablet) {
+      gap: 42px;
+      font-size: 100px;
+      letter-spacing: normal;
+    }
+
+    @media (min-width: $desktop-1280) {
+      gap: 100px;
+      margin-bottom: 0;
+      font-size: 200px;
+      line-height: 160px;
+    }
+  }
+
+  &__start {
+    color: $royal-blue;
+  }
+
+  &__end {
+    color: $persian-pink;
+  }
+
+  &__name {
+    margin-bottom: 24px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 145%;
+    color: $east-bay;
+
+    @media (min-width: $tablet) {
+      font-size: 18px;
+    }
+
+    @media (min-width: $desktop-1280) {
+      display: none;
+    }
+  }
+
+  &__navigation {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    width: 60px;
+    z-index: 10;
+
+    @media (min-width: $desktop-1280) {
+      position: absolute;
+      top: 297px;
+      left: 0;
+      gap: 20px;
+      width: 120px;
+    }
+  }
+
+  &__fraction {
+    width: 100%;
+    font-size: 14px;
+    color: $east-bay;
+  }
+
+  &__nav {
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    cursor: pointer;
+
+    @media (min-width: $desktop-1280) {
+      width: 50px;
+      height: 50px;
+    }
+
+    &:hover {
+      &:not(.swiper-button-disabled) {
+        background: #ffffff;
+      }
+    }
+
+    &--prev {
+    }
+
+    &--next {
+      img {
+        transform: rotate(180deg);
+      }
+    }
+
+    &.swiper-button-disabled {
+      opacity: 0.5;
+      cursor: auto;
+    }
+  }
+}
