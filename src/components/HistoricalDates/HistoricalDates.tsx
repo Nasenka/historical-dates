@@ -40,30 +40,24 @@ function HistoricalDates({ dates }: IDatesProps) {
     { scope: circle }
   );
 
-  const angles = useMemo(() => {
-    const angleIncrement = (Math.PI * 2) / dates.length;
-
-    return dates.map((data, index) => {
-      const angle = angleIncrement * index;
-
-      return angle;
-    });
-  }, [dates]);
+  const angleIncrement = (Math.PI * 2) / dates.length;
 
   const circles = useMemo(() => {
     if (isRendered) {
       const radius = circle.current!.offsetWidth / 2;
 
-      return angles.map((angle) => {
+      return dates.map((date, index) => {
+
         return {
-          x: radius + Math.cos(angle) * radius - 4,
-          y: radius + Math.sin(angle) * radius - 4,
+          angle: angleIncrement * index,
+          x: radius + Math.cos(angleIncrement * index) * radius - 6,
+          y: radius + Math.sin(angleIncrement * index) * radius - 6,
         };
       });
     }
 
     return [];
-  }, [isRendered, angles]);
+  }, [isRendered, angleIncrement, dates]);
 
   return (
     <section className="historical-dates">
@@ -78,24 +72,20 @@ function HistoricalDates({ dates }: IDatesProps) {
               }`}
               key={index}
               style={{ top: y, left: x }}
+              disabled={index === activeIndex ? true : false}
               onClick={() => {
                 const distance = circles.length - Math.abs(activeIndex - index);
 
                 tl.current!.to(circle.current, {
-                  rotation: `${distance * angles[1]}rad`,
+                  rotation: `${distance * angleIncrement}rad`,
                 }).to(
                   ".historical-dates__bullet",
                   {
-                    rotation: `${-(2 * Math.PI - angles[index])}rad`,
+                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
                   },
                   0
                 );
                 swiperPeriod?.slideTo(index);
-
-                console.log(
-                  "getProperty",
-                  gsap.getProperty(circle.current, "rotation")
-                );
               }}
             >
               {index + 1}
@@ -152,11 +142,11 @@ function HistoricalDates({ dates }: IDatesProps) {
               className="historical-dates__nav historical-dates__nav--prev"
               onClick={() => {
                 tl.current!.to(circle.current, {
-                  rotation: `${-angles[1]}rad`,
+                  rotation: `${-angleIncrement}rad`,
                 }).to(
                   `.bullet`,
                   {
-                    rotation: `${-(2 * Math.PI - angles[1])}rad`,
+                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
                   },
                   0
                 );
@@ -168,11 +158,11 @@ function HistoricalDates({ dates }: IDatesProps) {
               className="historical-dates__nav historical-dates__nav--next"
               onClick={() => {
                 tl.current!.to(circle.current, {
-                  rotation: `${angles[1]}rad`,
+                  rotation: `${angleIncrement}rad`,
                 }).to(
                   `.bullet`,
                   {
-                    rotation: `${-(2 * Math.PI - angles[1])}rad`,
+                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
                   },
                   0
                 );
