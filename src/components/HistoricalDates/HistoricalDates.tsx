@@ -47,11 +47,10 @@ function HistoricalDates({ dates }: IDatesProps) {
       const radius = circle.current!.offsetWidth / 2;
 
       return dates.map((date, index) => {
-
         return {
           angle: angleIncrement * index,
-          x: radius + Math.cos(angleIncrement * index) * radius - 6,
-          y: radius + Math.sin(angleIncrement * index) * radius - 6,
+          x: radius + Math.cos(angleIncrement * index) * radius - 7,
+          y: radius + Math.sin(angleIncrement * index) * radius - 7,
         };
       });
     }
