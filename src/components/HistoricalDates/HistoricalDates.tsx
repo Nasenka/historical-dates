@@ -24,6 +24,7 @@ function HistoricalDates({ dates }: IDatesProps) {
   const [isRendered, setIsRendered] = useState(false);
   const [swiperPeriod, setSwiperPeriod] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [currentAngle, setCurrentAngle] = useState(0);
 
   useEffect(() => {
     setIsRendered(true);
@@ -48,7 +49,7 @@ function HistoricalDates({ dates }: IDatesProps) {
 
       return dates.map((date, index) => {
         return {
-          angle: angleIncrement * index,
+          angle: 2 * Math.PI - angleIncrement * index,
           x: radius + Math.cos(angleIncrement * index) * radius - 7,
           y: radius + Math.sin(angleIncrement * index) * radius - 7,
         };
@@ -57,6 +58,8 @@ function HistoricalDates({ dates }: IDatesProps) {
 
     return [];
   }, [isRendered, angleIncrement, dates]);
+
+  console.log("circles", circles);
 
   return (
     <section className="historical-dates">
@@ -73,10 +76,13 @@ function HistoricalDates({ dates }: IDatesProps) {
               style={{ top: y, left: x }}
               disabled={index === activeIndex ? true : false}
               onClick={() => {
-                const distance = circles.length - Math.abs(activeIndex - index);
+                const rotation = circles[index].angle;
+
+                setCurrentAngle(() => rotation);
+                console.log("currentAngle", currentAngle);
 
                 tl.current!.to(circle.current, {
-                  rotation: `${distance * angleIncrement}rad`,
+                  rotation: `${circles[index].angle}rad`,
                 }).to(
                   ".historical-dates__bullet",
                   {
@@ -140,10 +146,12 @@ function HistoricalDates({ dates }: IDatesProps) {
             <button
               className="historical-dates__nav historical-dates__nav--prev"
               onClick={() => {
+                const rotation = circles[activeIndex].angle;
+
                 tl.current!.to(circle.current, {
-                  rotation: `${-angleIncrement}rad`,
+                  rotation: `${rotation}rad`,
                 }).to(
-                  `.bullet`,
+                  `.historical-dates__bullet`,
                   {
                     rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
                   },
@@ -156,10 +164,12 @@ function HistoricalDates({ dates }: IDatesProps) {
             <button
               className="historical-dates__nav historical-dates__nav--next"
               onClick={() => {
+                const rotation = circles[activeIndex].angle;
+
                 tl.current!.to(circle.current, {
-                  rotation: `${angleIncrement}rad`,
+                  rotation: `${rotation}rad`,
                 }).to(
-                  `.bullet`,
+                  `.historical-dates__bullet`,
                   {
                     rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
                   },

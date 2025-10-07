@@ -61,6 +61,9 @@
     transform: translateX(-50%);
     border: 1px solid rgb(66 86 122 / 20%);
     border-radius: 50%;
+    // background: url("../HistoricalDates/circle.jpg") no-repeat;
+    // background: url("https://ege-study.ru/wp-content/uploads/2013/08/trigonometr.jpg") no-repeat;
+    background-size: cover;
     z-index: 10;
 
     @media (min-width: $desktop-1280) {
