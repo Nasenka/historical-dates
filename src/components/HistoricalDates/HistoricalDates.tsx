@@ -50,8 +50,8 @@ function HistoricalDates({ dates }: IDatesProps) {
       return dates.map((date, index) => {
         return {
           angle: 2 * Math.PI - angleIncrement * index,
-          x: radius + Math.cos(angleIncrement * index) * radius - 7,
-          y: radius + Math.sin(angleIncrement * index) * radius - 7,
+          x: radius + Math.cos(angleIncrement * index) * radius - 3,
+          y: radius + Math.sin(angleIncrement * index) * radius - 3,
         };
       });
     }
@@ -78,22 +78,21 @@ function HistoricalDates({ dates }: IDatesProps) {
               onClick={() => {
                 const rotation = circles[index].angle;
 
-                setCurrentAngle(() => rotation);
-                console.log("currentAngle", currentAngle);
+                // setCurrentAngle(() => rotation);
 
                 tl.current!.to(circle.current, {
-                  rotation: `${circles[index].angle}rad`,
+                  rotation: `${rotation}rad`,
                 }).to(
                   ".historical-dates__bullet",
                   {
-                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
+                    rotation: `${-(rotation)}rad`,
                   },
                   0
                 );
                 swiperPeriod?.slideTo(index);
               }}
             >
-              {index + 1}
+              <span>{index + 1}</span>
             </button>
           ))}
         </div>
