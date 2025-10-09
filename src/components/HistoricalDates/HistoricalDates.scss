@@ -61,8 +61,8 @@
     transform: translateX(-50%);
     border: 1px solid rgb(66 86 122 / 20%);
     border-radius: 50%;
-    // background: url("../HistoricalDates/circle.jpg") no-repeat;
-    // background: url("https://ege-study.ru/wp-content/uploads/2013/08/trigonometr.jpg") no-repeat;
+    // background: url("https://ege-study.ru/wp-content/uploads/2013/08/trigonometr.jpg")
+    //   no-repeat;
     background-size: cover;
     z-index: 10;
 
@@ -78,29 +78,42 @@
   &__bullet {
     position: absolute;
     display: none;
-    align-items: center;
-    justify-content: center;
-    width: 14px;
-    height: 14px;
-    background: $east-bay;
-    border-radius: 100%;
+    width: 6px;
+    height: 6px;
     cursor: pointer;
-    font-size: 0;
-    line-height: 30px;
-    color: $east-bay;
+    z-index: 20;
 
     @media (min-width: $desktop-1280) {
+      display: block;
+    }
+
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
       display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 6px;
+      height: 6px;
+      background: $east-bay;
+      border-radius: 100%;
+      font-size: 0;
+      line-height: 30px;
+      color: $east-bay;
+      transform: translate(calc(-50% + 3px), calc(-50% + 3px));
+      transition: width 0.3s ease, height 0.3s ease;
     }
 
     &:hover,
     &--active {
-      width: 56px;
-      height: 56px;
-      font-size: 20px;
-      background: $whisper;
-      border: 1px solid $east-bay;
-      transform: translate(-50%, -50%);
+      span {
+        width: 56px;
+        height: 56px;
+        border: 1px solid $east-bay;
+        background: $whisper;
+        font-size: 20px;
+      }
     }
   }
 
