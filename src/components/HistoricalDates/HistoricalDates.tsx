@@ -21,6 +21,7 @@ interface IDatesProps {
 function HistoricalDates({ dates }: IDatesProps) {
   const tl = useRef<gsap.core.Timeline>(null);
   const circle = useRef<HTMLDivElement>(null);
+  const periodName = useRef<HTMLSpanElement>(null);
   const [isRendered, setIsRendered] = useState(false);
   const [swiperPeriod, setSwiperPeriod] = useState<SwiperType | null>(null);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -50,8 +51,14 @@ function HistoricalDates({ dates }: IDatesProps) {
       return dates.map((date, index) => {
         return {
           angle: 2 * Math.PI - angleIncrement * index,
-          x: radius + Math.cos(angleIncrement * index) * radius - 3,
-          y: radius + Math.sin(angleIncrement * index) * radius - 3,
+          x:
+            radius +
+            Math.cos(angleIncrement * index - angleIncrement) * radius -
+            3,
+          y:
+            radius +
+            Math.sin(angleIncrement * index - angleIncrement) * radius -
+            3,
         };
       });
     }
@@ -85,14 +92,19 @@ function HistoricalDates({ dates }: IDatesProps) {
                 }).to(
                   ".historical-dates__bullet",
                   {
-                    rotation: `${-(rotation)}rad`,
+                    rotation: `${-rotation}rad`,
                   },
                   0
                 );
                 swiperPeriod?.slideTo(index);
               }}
             >
-              <span>{index + 1}</span>
+              <span className="historical-dates__bullet-number">
+                {index + 1}
+              </span>
+              <span className="historical-dates__period-name" ref={periodName}>
+                {dates[index].title}
+              </span>
             </button>
           ))}
         </div>
@@ -152,7 +164,7 @@ function HistoricalDates({ dates }: IDatesProps) {
                 }).to(
                   `.historical-dates__bullet`,
                   {
-                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
+                    rotation: `${-rotation}rad`,
                   },
                   0
                 );
@@ -170,7 +182,7 @@ function HistoricalDates({ dates }: IDatesProps) {
                 }).to(
                   `.historical-dates__bullet`,
                   {
-                    rotation: `${-(2 * Math.PI - angleIncrement)}rad`,
+                    rotation: `${-rotation}rad`,
                   },
                   0
                 );
