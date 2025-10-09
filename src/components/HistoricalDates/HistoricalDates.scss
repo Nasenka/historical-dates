@@ -87,7 +87,7 @@
       display: block;
     }
 
-    span {
+    &-number {
       position: absolute;
       top: 0;
       left: 0;
@@ -107,7 +107,7 @@
 
     &:hover,
     &--active {
-      span {
+      .historical-dates__bullet-number {
         width: 56px;
         height: 56px;
         border: 1px solid $east-bay;
@@ -115,6 +115,27 @@
         font-size: 20px;
       }
     }
+
+    &--active {
+      .historical-dates__period-name {
+        // display: block;
+        opacity: 1;
+      }
+    }
+  }
+
+  &__period-name {
+    position: absolute;
+    left: 48px;
+    top: 50%;
+    // display: none;
+    opacity: 0;
+    transform: translateY(-50%);
+    color: $east-bay;
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 700;
+    transition: opacity ease-in 1s;
   }
 
   &__period {
